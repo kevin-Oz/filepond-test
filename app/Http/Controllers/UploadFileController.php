@@ -9,21 +9,14 @@ class UploadFileController extends Controller
 {
     public function store(Request $request)
     {
-
         try {
-            if($request->hasFile('file_')){
-
-                $file = $request->file('file_');
+            $fileRequest = $request->all();
+                $file =  $fileRequest['file_'];
                 $filename = $file->getClientOriginalName();
                 $folder = uniqid().'-'.now()->timestamp;
-                
-                $file->storeAs('test/'. $folder, $filename);
-            
+                $path = $file->storeAs('test/'. $folder, $filename);
                 return $folder;
-    
-            }else{
-                return '';
-            }
+           
         } catch (\Exception $e) {
             return response()->json(['Error'=> $e->getMessage()],500);
         }
@@ -31,8 +24,9 @@ class UploadFileController extends Controller
 
     public function delete(Request $request)
     {
-
-        dd($request);
-        Storage::delete('filename.txt');
+        $fileId = request()->getContent();
+        Storage::deleteDirectory('test/'.$fileId);
+        //Storage::delete($fileId);
     }
+
 }

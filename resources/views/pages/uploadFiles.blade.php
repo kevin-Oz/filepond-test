@@ -12,18 +12,40 @@
     <link rel="stylesheet" href="{{ asset('assets/css/filepond.css') }}">
     <script src="{{ asset('assets/js/filepond.js') }}"></script>
 
-    <style>
-      
+    <style>      
         .filepond--credits{
             display: none;
         }
+
     </style>
+
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+
 </head>
 <body>
-    
 
-    <input type="file" id="file_" name="file_" />
 
+
+    <div id="app">
+
+        <div class="container mt-5">
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <div class="card">
+                    <div class="card-header">Example Upload files</div>
+
+                        <div class="card-body">
+                            <upload-component token= "{{ csrf_token() }}"></upload-component>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+    <script src="{{ asset('js/app.js') }}"></script>
     <script>
         // Get a reference to the file input element
         const inputElement = document.querySelector('input[id="file_"]');
@@ -40,6 +62,7 @@
             }
         });
     </script>
+
 
 
 </body>
